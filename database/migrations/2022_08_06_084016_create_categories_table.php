@@ -20,6 +20,14 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+    // $table->id();
+    // $table->foreignId('product_id')->constrained();
+    // $table->float('price');
+    // $table->integer('quantity');
+    // $table->string('payment_method)->nullable();
+    // $table->string('sale_type);
+    // $table->foreignId('work_id')->constrained();
+    // $table->timestamps();
 
     /**
      * Reverse the migrations.

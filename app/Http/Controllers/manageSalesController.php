@@ -43,6 +43,7 @@ class manageSalesController extends Controller
         // $request->validate([
         //     'item' => 'required',
         // ]);
+        $customers = customer::all();
         $cart=Cart::content();
         $term = $request->item;
         $user = product::take(5)->Where('name','LIKE','%'.$term.'%')->orWhere('product_code','LIKE','%'.$term.'%')->orWhere('model','LIKE','%'.$term.'%')->get();
@@ -54,7 +55,7 @@ class manageSalesController extends Controller
         //     }
         // }]);
         
-        return view('search',compact('user','cart'));
+        return view('search',compact('user','cart','customers'));
     }
 public function salesView($id)
 {

@@ -25,7 +25,7 @@ class manageProductsController extends Controller
        $manager = manager::find(Auth::guard('manager')->id());
         $categories = category::all();
         try{
-            $products = product::where('store_id',$manager->store->getId())->get();
+            $products = product::where('store_id',$manager->store->getId())->with('category')->get();
             if($products){
 
                 return view('admin.managers.index',compact('products','categories','rate'));
@@ -73,9 +73,11 @@ class manageProductsController extends Controller
         $redColor = [255, 0, 0];
         // $generator = DNS1D::getBarcodeHTML($productCode, 'PHARMA');
         $generator = new BarcodeGeneratorHTML();
-        $barcode = $generator->getBarcode($productCode, $generator::TYPE_STANDARD_2_5, 60);
+        $barcode = $generator->getBarcode($productCode, $generator::TYPE_STANDARD_2_5,);
 
-       $rate = rate::where('id','=',1)->first()->pluck('exchange_rate')->get(0);
+        $rates = rate::all();
+
+        $rate = $rates->pluck('exchange_rate')->get(0);
     //    dd($rate);
     //   dd($rateOne = $rate[0]['exchange_rate']);
        $price1 =  $request->cost_price * $rate;
@@ -90,7 +92,7 @@ class manageProductsController extends Controller
         $product->product_code = $productCode;
         $product->barcode = $barcode;
         $product->color = $request->color;
-        $product->reorder_quantity = $request->r_quantity;
+        $product->reorder_quantity = $request->reorder_quantity;
         $product->quantity= $request->quantity;
         $product->store_id = $store_id->store->getId();
         $product->save();
@@ -123,8 +125,8 @@ class manageProductsController extends Controller
      */
     public function edit($id)
     {
-        $edit = product::find($id);
-        return view('admin.edit')->with('edit',$dit);
+        $product = product::find($id);
+        return view('admin.edit')->with('product',$product);
     }
 
     /**
@@ -136,18 +138,30 @@ class manageProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'=> 'required',
-            'model'=> 'required',
-            'quantity'=> 'required',
-        ]);
+        $rates = rate::all();
+        $rate = $rates->pluck('exchange_rate')->get(0);
+        $price1 =  $request->cost_price * $rate;
+        $price2 =  $request->profit_percentage/100 * $price1;
+        $price3 = $price1 + $price2;
+        $productCode = rand(1234567890,50);
+        $redColor = [255, 0, 0];
+        $generator = new BarcodeGeneratorHTML();
+        $barcode = $generator->getBarcode($productCode, $generator::TYPE_STANDARD_2_5);
         $product = Product::find($id);
+
         $product->update([
             'name'=> $request->name,
             'model'=> $request->model,
-            'quantity'=> $quantity,
+            'quantity'=> $request->quantity,
+            'profit_percentage'=> $request->profit_percentage,
+            'reorder_quantity'=>$request->reorder_quantity,
+            'cost_price'=> $price1,
+            'price' => $price3,
+            'product_code' => $productCode,
+            'barcode' => $barcode
+
         ]);
-        return to_route('Admin.categories.index')->with('success','category updated successfully');
+        return redirect()->route('managerManageProducts.index')->with('success','product updated successfully');
 
     }
 

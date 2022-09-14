@@ -17,7 +17,11 @@ class category extends Model
          */
         public function product()
         {
-            return $this->belongsToMany(product::class);
+            return $this->hasMany(product::class,'product_id');
+        }
+        public function getName()
+        {
+            return $this->attributes['name'];
         }
     
 }

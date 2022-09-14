@@ -284,7 +284,7 @@ $(document).ready(function(){
 						<h2> <b>Manage products</b></h2>
 					</div>
 					{{-- <div class="float-right"> --}}
-						<h4 class="float-right ml-500"><ion-icon name="cart-outline"></ion-icon>Cart({{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}})</h4>
+						<a href="#cartModal" data-target="#cartModal" data-toggle="modal"><ion-icon name="cart-outline"></ion-icon>Cart({{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}})</a>
 						{{-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Category</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 --}}
 					{{-- </div> --}}
@@ -333,7 +333,7 @@ $(document).ready(function(){
 							@if ($cart->where('id',$use->id)->count())
 								In cart
 							@else
-							<form method="POST" action="{{route('cart.add')}}">
+							<form method="post" action="{{route('cart.add')}}">
 								@csrf
 								<input type="hidden" name="product_id" value="{{$use->id}}">
 								<input type="number" name="quantity" value="1">
@@ -341,7 +341,7 @@ $(document).ready(function(){
 							</form>
 							@endif
 							@endisset
-							{{-- <a href="#deleteEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add to cart">CART</i></a> --}}
+
 						</td>
 						
 					</tr> 
@@ -364,6 +364,58 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>        
+</div>
+<!-- cart Modal HTML -->
+<div id="cartModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Quantity</th>
+						<th>Price</th>
+					</tr>
+					
+				</thead>
+				<tbody>
+					@isset($cart)
+					@foreach($cart as $cartProduct)
+					<tr>
+						<td>{{$cartProduct->name}}</td>
+						<td>{{$cartProduct->qty}}</td>
+						<td><span>&#8358;</span> {{$cartProduct->price}}</td>
+						
+					</tr> 
+					@endforeach
+					@endisset
+					<div>
+					<td>Total: <span>&#8358;</span>{{\Gloudemans\Shoppingcart\Facades\Cart::total()}}</td></div>
+					<td>
+						<div>
+							<form method="POST" action="{{route('checkout')}}">
+								@csrf
+								<div class="form-group">
+									<select  id="categories" name="categories[]"  multiple required>
+										@isset($customers)
+										@foreach($customers as $customer)
+										<option value ="{{$customer->id}}">{{$customer->name}}</option>
+										@endforeach
+										@endisset
+									  </select>
+								</div> 	
+								<button class="btn btn-success" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="checkout">checkout </i></button>
+						</form>
+						</div>
+						
+					</td>
+				</tbody>
+			</table>
+	
+  
+	</div>
+
+</div>
 </div>
 <!-- Edit Modal HTML -->
 

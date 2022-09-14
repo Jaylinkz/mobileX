@@ -319,6 +319,7 @@ $(document).ready(function(){
 							</span>
 						</th>
 						<th>Name</th>
+						<th>Category</th>
 						<th>Model</th>
 						<th>Quantity</th>
 						<th>Price</th>
@@ -337,13 +338,14 @@ $(document).ready(function(){
 							</span>
 						</td>
 						<td>{{$product->name}}</td>
+						<td>{{$product->category->name}}</td>
 						<td>{{$product->model}}</td>
-						<td>{{$product->quantit < 1 ? $product->quantity : "out of stock"}}</td>
+						<td>{{$product->quantity > 1 ? $product->quantity : "out of stock"}}</td>
 						<td><span>&#8358;</span> {{$product->price}}</td>
 						<td><span>&#8358;</span> {{$product->cost_price}}</td>
 						{{-- <td>{{$product->store->getName() ?? 'default'}}</td> --}}
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="{{route('manageProducts.edit',$product->id)}}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 							<a href="{{route('manageProducts.destroy',$product->id)}}" class="delete" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
 							<a href="{{url('show',$product->id)}}" class="transfer" ><i class="material-icons" style="font-size:30px" title="transfer product">fast_forward</i></a>
 							
@@ -410,7 +412,7 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group">
 						<p>categories</p>
-                        <select  id="categories" name="categories[]">
+                        <select  id="categories" name="categories">
                             @foreach($categories as $category)
                             <option value ="{{$category->id}}">{{$category->name}}</option>
                             @endforeach

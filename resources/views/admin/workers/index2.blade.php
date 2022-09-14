@@ -362,6 +362,7 @@ $(document).ready(function(){
 							 
 							</form>
 							@endif
+							<a href="{{url('sales',$product->id)}}" class="btn btn-info text-white m-100">sale</a>
 							{{-- <a href="#deleteEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add to cart">CART</i></a> --}}
 						</td>
 						

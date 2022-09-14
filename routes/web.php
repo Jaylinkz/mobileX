@@ -47,6 +47,8 @@ Route::post('adminLogin',[App\Http\Controllers\Auth\authenticationController::cl
 // Route::post('adminLogin',[App\Http\Controllers\Auth\authenticationController::class,'adminLogin']);
 Route::post('workerLogin',[App\Http\Controllers\Auth\authenticationController::class,'workerLogin'])->name('workerLogin');
 Route::POST('managerLogs',[App\Http\Controllers\Auth\authenticationController::class,'managerLogin']);
+Route::get('sales/{id}',[App\Http\Controllers\salesController::class,'index']);
+Route::post('saveSale',[App\Http\Controllers\salesController::class,'sales'])->name('saveSale');
 // Route::get('/cart', 'App \ Http \ Controllers \ manageSalesController@index')->name("cart.index");
 // Route::get('/cart/delete', 'App \ Http \ Controllers \ manageSalesController@delete')->name("cart.delete");
 // Route::middleware(['admin','manager','worker'])->group(function () {

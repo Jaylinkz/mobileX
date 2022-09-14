@@ -330,7 +330,7 @@ $(document).ready(function(){
 						<td><span>&#8358;</span> {{$product->cost_price}}</td>
 						{{-- <td>{{$product->store->getName() ?? 'default'}}</td> --}}
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="{{route('managerManageProducts.edit',$product->id)}}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 							<a href="{{url('manageProducts.destroy',$product->id)}}" class="delete" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
 							<a href="{{url('show',$product->id)}}" class="transfer" ><i class="material-icons" style="font-size:30px" title="transfer product">fast_forward</i></a>
 
@@ -384,7 +384,7 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group">
 						<label>color</label>
-						<input type="text" class="form-control" name="color" required>
+						<input type="text" class="form-control" name="color">
 					</div>
 					<div class="form-group">
 						<label>Cost price</label>
@@ -393,6 +393,10 @@ $(document).ready(function(){
 					<div class="form-group">
 						<label>profit percentage</label>
 						<input type="number" class="form-control" name="profit_percentage" required>
+					</div>
+					<div class="form-group">
+						<label>Reorder quantity</label>
+						<input type="number" class="form-control" name="reorder_quantity" required>
 					</div>
 					<div class="form-group">
                         <select  id="categories" name="categories[]"  >

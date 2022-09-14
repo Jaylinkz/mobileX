@@ -314,7 +314,7 @@ $(document).ready(function(){
 						<h2> <b>Manage products</b></h2>
 					</div>
 					{{-- <div class="float-right"> --}}
-						<a href="#cartModal" data-target="#cartModal" data-toggle="modal"><ion-icon name="cart-outline"></ion-icon>Cart</a>
+						<a href="#cartModal" data-target="#cartModal" data-toggle="modal"><ion-icon name="cart-outline"></ion-icon>Cart({{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}})</a>
 						{{-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Category</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 --}}
 					{{-- </div> --}}

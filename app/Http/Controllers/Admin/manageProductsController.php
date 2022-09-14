@@ -23,7 +23,7 @@ class manageProductsController extends Controller
         $rate = rate::take(1)->get();
         $stores = store::all();
         $categories = category::all();
-        $products = product::all();//->orderBy('id','desc')->paginate(10);;
+        $products = product::with('category')->orderBy('id','desc')->paginate(10);
         return view('admin.products.index',compact('products','categories','stores','rate'));
     }
 
@@ -80,12 +80,13 @@ class manageProductsController extends Controller
         $product->barcode = $barcode;
         $product->reorder_quantity = $request->r_quantity;
         $product->color = $request->color;
+        $product->category_id = $request->categories;
         $product->quantity= $request->quantity;
         $product->store_id = $request->store_id;
         $product->save();
-        if($request->has('categories')){
-            $product->category()->attach($request->categories);
-        }
+        // if($request->has('categories')){
+        //     $product->category()->attach($request->categories);
+        // }
         return back();
         
     }
@@ -112,8 +113,9 @@ class manageProductsController extends Controller
      */
     public function edit($id)
     {
-        $edit = product::find($id);
-        return view('admin.edit')->with('edit',$dit);
+        $categories = category::all();
+        $product = product::find($id);
+        return view('admin.products.edit',compact('product','categories'));
     }
 
     /**
@@ -125,18 +127,38 @@ class manageProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'=> 'required',
-            'model'=> 'required',
-            'quantity'=> 'required',
-        ]);
+        // $request->validate([
+        //     'name'=> 'required',
+        //     'model'=> 'required',
+        //     'quantity'=> 'required',
+        //     'profit_percentage'=>'required',
+        //     'reorder_quantity'=>'required',
+        //     'cost_price'=>'required'
+        // ]);
+        $rates = rate::all();
+        $rate = $rates->pluck('exchange_rate')->get(0);
+        $price1 =  $request->cost_price * $rate;
+        $price2 =  $request->profit_percentage/100 * $price1;
+        $price3 = $price1 + $price2;
+        $productCode = rand(1234567890,50);
+        $redColor = [255, 0, 0];
+        $generator = new BarcodeGeneratorHTML();
+        $barcode = $generator->getBarcode($productCode, $generator::TYPE_STANDARD_2_5);
         $product = Product::find($id);
+
         $product->update([
             'name'=> $request->name,
             'model'=> $request->model,
-            'quantity'=> $quantity,
+            'quantity'=> $request->quantity,
+            'profit_percentage'=> $request->profit_percentage,
+            'reorder_quantity'=>$request->reorder_quantity,
+            'cost_price'=> $price1,
+            'price' => $price3,
+            'product_code' => $productCode,
+            'barcode' => $barcode
+
         ]);
-        return to_route('Admin.categories.index')->with('success','category updated successfully');
+        return redirect()->route('manageProducts.index')->with('success','product updated successfully');
 
     }
 
