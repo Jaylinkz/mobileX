@@ -36,9 +36,5 @@ class salesController extends Controller
         $sale->payment_method = $request->payment_method;
         $sale->save();
         return to_route('workerIndex')->with('message','sale completed successfully');
-
-
-
-
     }
 }

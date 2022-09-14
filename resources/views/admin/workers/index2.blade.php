@@ -275,7 +275,7 @@ $(document).ready(function(){
 		<form action="{{url('workersDashboard')}}" method="get">
 			@csrf
 			<div class="">	
-				<input type="submit" class="btn btn-primary" value="back to dashboard">
+				<input type="submit" class="btn btn-info" value="back to dashboard">
 			</div>
 		</form>
 	</div>
@@ -304,7 +304,7 @@ $(document).ready(function(){
 						<h2> <b>Manage products</b></h2>
 					</div>
 					{{-- <div class="float-right"> --}}
-						<a href="#cartModal" data-target="#cartModal" data-toggle="modal"><ion-icon name="cart-outline"></ion-icon>Cart({{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}})</a>
+						<a href="#cartModal" data-target="#cartModal" data-toggle="modal" class="btn btn-info"><ion-icon name="cart-outline"></ion-icon>Cart({{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}})</a>
 						{{-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Category</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 --}}
 					{{-- </div> --}}
@@ -354,10 +354,10 @@ $(document).ready(function(){
 								@csrf
 								<input type="hidden" name="product_id" value="{{$product->id}}">
 								<div class="form-group">
-								<input type="number" name="quantity" >
+								<input type="number" name="quantity" placeholder="Quantity">
 							</div>
 							<div class="form-group">
-								<button  class="btn btn-primary">cart</button>
+								<button  class="btn btn-info position-relative" style="float: right">cart</button>
 							</div>
 							 
 							</form>
