@@ -105,7 +105,7 @@ Route::get('/cart/delete', [App\Http\Controllers\manageSalesController::class,'d
 
     Route::resource('category', categoryController::class);
     Route::get('index',[App\Http\Controllers\manageSalesController::class,'indexView']);
-    Route::get('workerIndex',[App\Http\Controllers\manageSalesController::class,'workerView']);//->middleware(['auth','worker']);
+    Route::get('workerIndex',[App\Http\Controllers\manageSalesController::class,'workerView'])->name('workerIndex');//->middleware(['auth','worker']);
     Route::post('/',[App\Http\Controllers\Sales\cartController::class,'addToCart'])->name("cart.add");
     Route::post('checkout',[App\Http\Controllers\Sales\cartController::class,'checkout'])->name("checkout");
     Route::get('/cartView',[App\Http\Controllers\Sales\cartController::class,'cartView'])->name("cartView");

@@ -334,6 +334,7 @@ $(document).ready(function(){
 						</th>
 						<th>Name</th>
 						<th>Model</th>
+						<th>Category</th>
 						<th>Quantity</th>
 						<th>Price</th>
 						<th>Cost Price</th>
@@ -353,6 +354,7 @@ $(document).ready(function(){
 						</td>
 						<td>{{$product->name}}</td>
 						<td>{{$product->model}}</td>
+						<td>{{$product->category->name}}</td>
 						<td>{{$product->quantity}}</td>
 						<td><span>&#8358;</span> {{$product->price}}</td>
 						<td><span>&#8358;</span> {{$product->cost_price}}</td>

@@ -37,7 +37,7 @@ class transferController extends Controller
         $transferName = $tt->first(); 
         if($quantity < 5 || $request->quantity > $quantity){
 
-            return back()->with('error','not enough in stock, only '.$quantity. ' left.');
+            return back()->with('message','not enough in stock, only '.$quantity.' left.');
         }
         product::where('store_id',$storeId)->where('name',$transferName)->decrement('quantity',$request->quantity);
         product::where('name',$transferName)->where('store_id',$request->store)->increment('quantity',$request->quantity);

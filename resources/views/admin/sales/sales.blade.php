@@ -253,9 +253,9 @@ table.table .avatar {
                     </div>
                     <div class="modal-body">					
                         <div class="form-group">
-                            <p>Name:{{$product->name}}</p>
-							<p>Model:{{$product->model}}</p>
-							<p>Current quantity:{{$product->quantity}}</p>
+                            <p>Name: {{$product->name}}</p>
+							<p>Model: {{$product->model}}</p>
+							<p>Current quantity: {{$product->quantity}}</p>
 
                             <input type="hidden" class="form-control" name="name" value="{{$product->name}}" required>
 							<input type="hidden" class="form-control" name="product_id" value="{{$product->id}}" required>
