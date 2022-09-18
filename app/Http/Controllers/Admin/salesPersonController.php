@@ -76,8 +76,8 @@ class salesPersonController extends Controller
      */
     public function edit($id)
     {
-        $worker = work::find($id);
-        return view('Admin.salesPerson.edit',compact('worker'));
+        $product = work::find($id);
+        return view('admin.workers.edit',compact('product'));
     }
 
     /**
@@ -95,13 +95,13 @@ class salesPersonController extends Controller
             'password'=>'required|max:8|min:6',
 
         ]);
-        $manager = manager::find($id);
-        $manager = new manager;
-        $manager->name = $request->name;
-        $manager->email = $request->email;
-        $manager->password = bcrypt($request->password);
-        $manager->update();
-        return view('Admin.managers.create');
+        $manager = work::find($id);
+        $manager->update($request->all());
+        // $manager->name = $request->name;
+        // $manage;r->email = $request->email;
+        // $manager->password = bcrypt($request->password);
+        // $manager->update()
+        return to_route('salesPerson.index');
     }
 
     /**
@@ -112,7 +112,8 @@ class salesPersonController extends Controller
      */
     public function destroy($id)
     {
-        work::destroy($id);
-        return back();
+       $del = work::find($id);
+       $del->delete();
+       return back();
     }
 }

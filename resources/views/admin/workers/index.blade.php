@@ -292,7 +292,7 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Managers</b></h2>
+						<h2>Manage <b>Sales people</b></h2>
 					</div>
 					<div class="col-sm-6">
 						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
@@ -337,8 +337,14 @@ $(document).ready(function(){
 								</form>
 							</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="{{route('salesPerson.edit',$worker->id)}}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							{{-- <a href="{{route(salesPers)}}" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							 --}}
+							 <form action="{{route("salesPerson.destroy", $worker->id)}}" method="post">
+								@csrf
+								@method('DELETE')
+								<button class="btn btn-danger" type="submit">Delete</button>
+							  </form>
 						</td>
 					</tr>
 					@endforeach
