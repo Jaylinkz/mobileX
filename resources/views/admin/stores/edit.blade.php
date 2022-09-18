@@ -242,11 +242,11 @@ table.table .avatar {
     <div id="editEmployeeModal" class="container">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="{{route('customer.update',$product->id)}}">
+                <form method="POST" action="{{route('store.update',$product->id)}}">
                     @csrf
                     @method("PATCH")
                     <div class="modal-header">						
-                        <h4 class="modal-title">Edit customer</h4>
+                        <h4 class="modal-title">Edit Store</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">					
@@ -255,13 +255,17 @@ table.table .avatar {
                             <input type="text" class="form-control" name="name" value="{{$product->name}}" required>
                         </div>
                         <div class="form-group">
-                            <label>Phone no</label>
-                            <input type="text" class="form-control" name="phone_no" value="{{$product->phone_id}}" required>
+                            <label>Model</label>
+                            <input type="text" class="form-control" name="state" value="{{$product->state}}" required>
                         </div>
                         <div class="form-group">
-                            <label>Location</label>
-                            <input type="text" class="form-control" name="phone_no" value="{{$product->location}}" required>
-                        </div>
+
+                            <select  id="categories" name="manager_id" class="form-multiselect block w-full mt-1" value="{{$product->manager_id}}">
+                                @foreach($categories as $category)
+                                <option value ="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                              </select>
+                        </div> 
                             
                     </div>
                     <div class="modal-footer">

@@ -170,10 +170,9 @@ class manageProductsController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+  
         $des = product::find($id);
-        dd($des);
-        $des->destroy();
+        $des->delete();
         return back();
     }
     

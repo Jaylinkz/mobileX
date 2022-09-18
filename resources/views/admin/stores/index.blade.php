@@ -303,8 +303,13 @@ $(document).ready(function(){
 						<td>{{$store->name}}</td>
 						<td>{{$store->state}}</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="{{route('store.edit',$store->id)}}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<form action="{{ route('store.destroy', $store->id)}}" method="post">
+								@csrf
+								@method('DELETE')
+								<button class="btn btn-danger" type="submit">Delete</button>
+							  </form>
+							{{-- <a href="{{route('store.destroy',$store->id)}}" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> --}}
 						</td>
 					</tr>
 					@empty

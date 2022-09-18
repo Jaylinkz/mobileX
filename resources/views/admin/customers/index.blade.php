@@ -321,9 +321,13 @@ $(document).ready(function(){
 						<td>{{$customer->phone_no}}</td>
 						<td>{{$customer->location}}</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="{{url('customer.destroy',$customer->id)}}" class="delete" ><i class="material-icons" title="Delete">&#xE872;</i></a>
-							
+							<a href="{{route('customer.edit',$customer->id)}}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							{{-- <a href="{{url('customer.destroy',$customer->id)}}" class="delete" ><i class="material-icons" title="Delete">&#xE872;</i></a> --}}
+							<form action="{{ route('customer.destroy', $customer->id)}}" method="post">
+								@csrf
+								@method('DELETE')
+								<button class="btn btn-danger w-5 mh-20 position-relative" type="submit">Delete</button>
+							  </form>
 							 {{-- <form method="POST" action="{{ route('customer.destroy',$customer->id) }}" accept-charset="UTF-8"  class=" px-2 py-4 bg-red-500 hover:bg-red-700 rounded-lg text-white">
 								{{ method_field('DELETE') }}
 								{{ csrf_field() }}

@@ -346,7 +346,12 @@ $(document).ready(function(){
 						{{-- <td>{{$product->store->getName() ?? 'default'}}</td> --}}
 						<td>
 							<a href="{{route('manageProducts.edit',$product->id)}}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="{{route('manageProducts.destroy',$product->id)}}" class="delete" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
+							{{-- <a href="{{route('manageProducts.destroy',$product->id)}}" class="delete" ><i class="material-icons"  title="Delete">&#xE872;</i></a> --}}
+							<form action="{{ route('manageProducts.destroy', $product->id)}}" method="post">
+								@csrf
+								@method('DELETE')
+								<button class="btn btn-danger w-5 mh-20 position-relative" type="submit">Delete</button>
+							  </form>
 							<a href="{{url('show',$product->id)}}" class="transfer" ><i class="material-icons" style="font-size:30px" title="transfer product">fast_forward</i></a>
 							
 							

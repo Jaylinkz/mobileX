@@ -64,6 +64,9 @@ class customerController extends Controller
      */
     public function edit($id)
     {
+
+        $product = customer::find($id);
+        return view('admin.customers.edit',compact('product'));
         
         
     }
@@ -85,6 +88,7 @@ class customerController extends Controller
             'name' => 'required',
         ]);
         $customer->update($request->all());
+        return to_route('customer.index');
         
     }
 
@@ -99,6 +103,6 @@ class customerController extends Controller
        
         $user = customer::find($id);
         $user->delete();
-        return back();
+        return back()->with('message','customer deleted');
     }
 }

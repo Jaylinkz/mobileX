@@ -67,8 +67,9 @@ class storeController extends Controller
      */
     public function edit($id)
     {
-        $store = store::find($id);
-        return view('Admin.store.edit',compact('store'));
+        $product = store::find($id);
+        $categories = manager::all();
+        return view('admin.stores.edit',compact('product','categories'));
     }
 
     /**
@@ -83,13 +84,15 @@ class storeController extends Controller
         $request->validate([
             'name'=>'required',
             'state'=>'required',
-            'store_id'=>'required'
+            'manager_id'=>'required'
         ]);
         $update = store::find($id);
         if($update)
         {
             $update->update($request->all());
+            return to_route('store.index');
         }
+        return back()->with('message','edit failed');
     }
 
     /**
@@ -100,7 +103,8 @@ class storeController extends Controller
      */
     public function destroy($id)
     {
-        store::destroy($id);
-        return back();
+        $store = store::find($id);
+        $store->delete();
+        return back()->with('message','store deleted');
     }
 }
