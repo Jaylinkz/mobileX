@@ -13,7 +13,7 @@ class manageSalesController extends Controller
     {
         $worker = work::find(Auth::guard('work')->id());
         $customers = customer::all();
-        $products = product::where('store_id',$worker->store->getId())->get();
+        $products = product::where('store_id',$worker->store->getId())->where('quantity','>',0)->orderBy('id','desc')->paginate(10);
         $cart=cart::content();
         return view('admin.workers.index2',compact('products','cart','customers'));
     }
@@ -32,12 +32,12 @@ class manageSalesController extends Controller
             return view('admin.products.index2',compact('products','cart','customers'));
         }
         }catch(\throwable){
-            
+
             return view('admin.products.index2');
 
         }
     }
-    
+
     public function search(Request $request)
     {
         // $request->validate([
@@ -47,14 +47,14 @@ class manageSalesController extends Controller
         $cart=Cart::content();
         $term = $request->item;
         $user = product::take(5)->Where('name','LIKE','%'.$term.'%')->orWhere('product_code','LIKE','%'.$term.'%')->orWhere('model','LIKE','%'.$term.'%')->get();
-    
+
         // $user = product::where(['name','!=',Null],
         // [function($query) use ($request){
         //     if(($term = $request->item)){
         //         product::Where('name','LIKE','%'.$term.'%')->orWhere('barcode','LIKE','%'.$term.'%')->get();
         //     }
         // }]);
-        
+
         return view('search',compact('user','cart','customers'));
     }
 public function salesView($id)
