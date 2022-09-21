@@ -29,7 +29,7 @@ body {
 	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
-.table-title {        
+.table-title {
 	padding-bottom: 15px;
 	background: #435d7d;
 	color: #fff;
@@ -86,7 +86,7 @@ table.table th i {
 	font-size: 13px;
 	margin: 0 5px;
 	cursor: pointer;
-}	
+}
 table.table td:last-child i {
 	opacity: 0.9;
 	font-size: 22px;
@@ -134,11 +134,11 @@ table.table .avatar {
 }
 .pagination li a:hover {
 	color: #666;
-}	
+}
 .pagination li.active a, .pagination li.active a.page-link {
 	background: #03A9F4;
 }
-.pagination li.active a:hover {        
+.pagination li.active a:hover {
 	background: #0397d6;
 }
 .pagination li.disabled i {
@@ -152,12 +152,12 @@ table.table .avatar {
 	float: left;
 	margin-top: 10px;
 	font-size: 13px;
-}    
+}
 /* Custom checkbox */
 .custom-checkbox {
 	position: relative;
 }
-.custom-checkbox input[type="checkbox"] {    
+.custom-checkbox input[type="checkbox"] {
 	opacity: 0;
 	position: absolute;
 	margin: 5px 0 0 3px;
@@ -233,28 +233,28 @@ table.table .avatar {
 .modal .btn {
 	border-radius: 2px;
 	min-width: 100px;
-}	
+}
 .modal form label {
 	font-weight: normal;
-}	
+}
 </style>
 <script>
 $(document).ready(function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
-	
+
 	// Select/Deselect checkboxes
 	var checkbox = $('table tbody input[type="checkbox"]');
 	$("#selectAll").click(function(){
 		if(this.checked){
 			checkbox.each(function(){
-				this.checked = true;                        
+				this.checked = true;
 			});
 		} else{
 			checkbox.each(function(){
-				this.checked = false;                        
+				this.checked = false;
 			});
-		} 
+		}
 	});
 	checkbox.click(function(){
 		if(!this.checked){
@@ -269,7 +269,7 @@ $(document).ready(function(){
 	<div class="form-group">
 		<form action="{{url('managerDashboard')}}" method="get">
 			@csrf
-			<div class="form-group">	
+			<div class="form-group">
 				<input type="submit" class="btn btn-primary" value="back to dashboard">
 			</div>
 		</form>
@@ -288,16 +288,16 @@ $(document).ready(function(){
 					</div>
 					<div class="col-sm-6">
 						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" ><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#deleteEmployeeModal" class="btn btn-danger" ><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						
-							
-						
+
+
+
 						<th>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="selectAll">
@@ -306,12 +306,13 @@ $(document).ready(function(){
 						</th>
 						<th>Name</th>
 						<th>Model</th>
+						<th>Category</th>
 						<th>Quantity</th>
 						<th>Price</th>
 						<th>Cost Price</th>
 						<th>Actions</th>
 					</tr>
-					
+
 				</thead>
 				<tbody>
 					@isset($products)
@@ -325,6 +326,7 @@ $(document).ready(function(){
 						</td>
 						<td>{{$product->name}}</td>
 						<td>{{$product->model}}</td>
+						<td>{{$product->category->name}}</td>
 						<td>{{$product->quantity}}</td>
 						<td><span>&#8358;</span> {{$product->price}}</td>
 						<td><span>&#8358;</span> {{$product->cost_price}}</td>
@@ -335,29 +337,24 @@ $(document).ready(function(){
 							<a href="{{url('show',$product->id)}}" class="transfer" ><i class="material-icons" style="font-size:30px" title="transfer product">fast_forward</i></a>
 
 						</td>
-						
-					</tr> 
+
+					</tr>
 					@empty
 					<p>No product added yet</p>
 					@endforelse
-					@endisset
+
 
 				</tbody>
 			</table>
 			<div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item active"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
+					{{$products->links()}}
 				</ul>
+                @endisset
 			</div>
 		</div>
-	</div>        
+	</div>
 </div>
 <!-- Edit Modal HTML -->
 <div id="addEmployeeModal" class="modal fade">
@@ -365,7 +362,7 @@ $(document).ready(function(){
 		<div class="modal-content">
 			<form method="POST" action="{{route('managerManageProducts.store')}}">
                 @csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Product</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
@@ -404,9 +401,9 @@ $(document).ready(function(){
                             <option value ="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                           </select>
-					</div> 				
-					
-				
+					</div>
+
+
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -423,11 +420,11 @@ $(document).ready(function(){
 			<form method="POST" action="">
                 @csrf
                 @method("PATCH")
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Product</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" class="form-control" name="name" required>
@@ -450,8 +447,8 @@ $(document).ready(function(){
                             <option value ="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                           </select>
-					</div> 
-						
+					</div>
+
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -468,11 +465,11 @@ $(document).ready(function(){
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Employee</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>

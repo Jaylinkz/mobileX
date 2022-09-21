@@ -25,7 +25,7 @@ class manageProductsController extends Controller
        $manager = manager::find(Auth::guard('manager')->id());
         $categories = category::all();
         try{
-            $products = product::where('store_id',$manager->store->getId())->with('category')->get();
+            $products = product::where('store_id',$manager->store->getId())->with('category')->orderBy('id','desc')->paginate(10);
             if($products){
 
                 return view('admin.managers.index',compact('products','categories','rate'));
@@ -36,9 +36,9 @@ class manageProductsController extends Controller
             return view('admin.managers.index',compact('categories','rate'));
 
         }
-    
+
         //->orderBy('id','desc')->paginate(10);;
-        
+
     }
 
     /**
@@ -100,7 +100,7 @@ class manageProductsController extends Controller
             $product->category()->attach($request->categories);
         }
         return back();
-        
+
     }
 
 
@@ -114,7 +114,7 @@ class manageProductsController extends Controller
     {
 
      //
-        
+
     }
 
     /**
@@ -177,5 +177,5 @@ class manageProductsController extends Controller
         $des->destroy();
         return back();
     }
-    
+
 }

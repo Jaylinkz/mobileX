@@ -34,7 +34,7 @@ body {
 	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
-.table-title {        
+.table-title {
 	padding-bottom: 15px;
 	background: #435d7d;
 	color: #fff;
@@ -91,7 +91,7 @@ table.table th i {
 	font-size: 13px;
 	margin: 0 5px;
 	cursor: pointer;
-}	
+}
 table.table td:last-child i {
 	opacity: 0.9;
 	font-size: 22px;
@@ -139,11 +139,11 @@ table.table .avatar {
 }
 .pagination li a:hover {
 	color: #666;
-}	
+}
 .pagination li.active a, .pagination li.active a.page-link {
 	background: #03A9F4;
 }
-.pagination li.active a:hover {        
+.pagination li.active a:hover {
 	background: #0397d6;
 }
 .pagination li.disabled i {
@@ -157,12 +157,12 @@ table.table .avatar {
 	float: left;
 	margin-top: 10px;
 	font-size: 13px;
-}    
+}
 /* Custom checkbox */
 .custom-checkbox {
 	position: relative;
 }
-.custom-checkbox input[type="checkbox"] {    
+.custom-checkbox input[type="checkbox"] {
 	opacity: 0;
 	position: absolute;
 	margin: 5px 0 0 3px;
@@ -238,28 +238,28 @@ table.table .avatar {
 .modal .btn {
 	border-radius: 2px;
 	min-width: 100px;
-}	
+}
 .modal form label {
 	font-weight: normal;
-}	
+}
 </style>
 <script>
 $(document).ready(function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
-	
+
 	// Select/Deselect checkboxes
 	var checkbox = $('table tbody input[type="checkbox"]');
 	$("#selectAll").click(function(){
 		if(this.checked){
 			checkbox.each(function(){
-				this.checked = true;                        
+				this.checked = true;
 			});
 		} else{
 			checkbox.each(function(){
-				this.checked = false;                        
+				this.checked = false;
 			});
-		} 
+		}
 	});
 	checkbox.click(function(){
 		if(!this.checked){
@@ -274,7 +274,7 @@ $(document).ready(function(){
 	<div class="form-group">
 		<form action="{{url('workersDashboard')}}" method="get">
 			@csrf
-			<div class="">	
+			<div class="">
 				<input type="submit" class="btn btn-info" value="back to dashboard">
 			</div>
 		</form>
@@ -313,9 +313,9 @@ $(document).ready(function(){
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						
-							
-						
+
+
+
 						<th>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="selectAll">
@@ -330,7 +330,7 @@ $(document).ready(function(){
 						<th>Cost Price</th>
 						<th>Actions</th>
 					</tr>
-					
+
 				</thead>
 				<tbody>
 					@foreach ($products as $product)
@@ -361,14 +361,17 @@ $(document).ready(function(){
 							<div class="form-group">
 								<button  class="btn btn-info position-relative" style="float: right">cart</button>
 							</div>
-							 
+
 							</form>
 							@endif
-							<a href="{{url('sales',$product->id)}}" class="btn btn-info text-white m-100">sale</a>
+                            @if (Auth::guard('work')->check())
+                            <a href="{{url('sales',$product->id)}}" class="btn btn-info text-white m-100">sale</a>
+							{{-- <a href="#deleteEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add to cart">CART</i></a> --}}
+                            @endif
 							{{-- <a href="#deleteEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add to cart">CART</i></a> --}}
 						</td>
-						
-					</tr> 
+
+					</tr>
 					@endforeach
 				</tbody>
 			</table>
@@ -385,7 +388,7 @@ $(document).ready(function(){
 				</ul>
 			</div>
 		</div>
-	</div>        
+	</div>
 </div>
 <!-- cart Modal HTML -->
 <div id="cartModal" class="modal fade">
@@ -398,7 +401,7 @@ $(document).ready(function(){
 						<th>Quantity</th>
 						<th>Price</th>
 					</tr>
-					
+
 				</thead>
 				<tbody>
 					@foreach($cart as $cartProduct)
@@ -406,8 +409,8 @@ $(document).ready(function(){
 						<td>{{$cartProduct->name}}</td>
 						<td>{{$cartProduct->qty}}</td>
 						<td><span>&#8358;</span> {{$cartProduct->price}}</td>
-						
-					</tr> 
+
+					</tr>
 					@endforeach
 					<div>
 					<td>Total: <span>&#8358;</span>{{\Gloudemans\Shoppingcart\Facades\Cart::total()}}</td></div>
@@ -421,7 +424,7 @@ $(document).ready(function(){
 										<option value ="{{$customer->id}}">{{$customer->name}}</option>
 										@endforeach
 									  </select>
-								</div> 	
+								</div>
 								<div class="form-group">
 									<select id="sale" name="sale_type">
 										<option value="credit">Credit</option>
@@ -433,12 +436,12 @@ $(document).ready(function(){
 							</div>
 						</form>
 						</div>
-						
+
 					</td>
 				</tbody>
 			</table>
-	
-  
+
+
 	</div>
 
 </div>

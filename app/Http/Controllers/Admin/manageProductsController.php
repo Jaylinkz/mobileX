@@ -88,7 +88,7 @@ class manageProductsController extends Controller
         //     $product->category()->attach($request->categories);
         // }
         return back();
-        
+
     }
 
 
@@ -102,7 +102,7 @@ class manageProductsController extends Controller
     {
 
      //
-        
+
     }
 
     /**
@@ -170,10 +170,10 @@ class manageProductsController extends Controller
      */
     public function destroy($id)
     {
-  
+
         $des = product::find($id);
         $des->delete();
         return back();
     }
-    
+
 }
