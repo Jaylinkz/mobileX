@@ -30,7 +30,7 @@ class salesController extends Controller
 
         $sale = new item;
         $sale->product_id = $request->product_id;
-        $sale->price = $request->price;
+        $sale->price = $request->price * $request->quantity;
         $sale->quantity = $request->quantity;
         $sale->sale_type = $request->sale_type;
         $sale->work_id = Auth::guard('work')->id();

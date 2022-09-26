@@ -29,6 +29,14 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+    <div class="form-group">
+		<form action="{{url('stats')}}" method="get">
+			@csrf
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="back to sale Records">
+			</div>
+		</form>
+	</div>
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
