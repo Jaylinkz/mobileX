@@ -54,4 +54,8 @@ public function setSale($sales)
 {
     $this->sale = $sale;
 }
+public function getName()
+{
+    return $this->attributes['name'];
+}
 }

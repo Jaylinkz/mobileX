@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{product,sale,work,item};
+use App\Models\{product,sale,work,item,customer};
 use Auth;
 
 class salesController extends Controller
@@ -11,8 +11,9 @@ class salesController extends Controller
 
     public function index($id)
     {
+        $customers = customer::all();
         $product = product::find($id);
-        return view('admin.sales.sales',compact('product'));
+        return view('admin.sales.sales',compact('product','customers'));
     }
     public function sales(Request $request)
     {
@@ -34,6 +35,7 @@ class salesController extends Controller
         $sale->sale_type = $request->sale_type;
         $sale->work_id = Auth::guard('work')->id();
         $sale->payment_method = $request->payment_method;
+        $sale->customer_id = $request->customer_id;
         $sale->save();
         return to_route('workerIndex')->with('message','sale completed successfully');
     }

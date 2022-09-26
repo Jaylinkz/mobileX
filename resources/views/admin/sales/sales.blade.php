@@ -29,7 +29,7 @@ body {
 	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
-.table-title {        
+.table-title {
 	padding-bottom: 15px;
 	background: #435d7d;
 	color: #fff;
@@ -86,7 +86,7 @@ table.table th i {
 	font-size: 13px;
 	margin: 0 5px;
 	cursor: pointer;
-}	
+}
 table.table td:last-child i {
 	opacity: 0.9;
 	font-size: 22px;
@@ -134,11 +134,11 @@ table.table .avatar {
 }
 .pagination li a:hover {
 	color: #666;
-}	
+}
 .pagination li.active a, .pagination li.active a.page-link {
 	background: #03A9F4;
 }
-.pagination li.active a:hover {        
+.pagination li.active a:hover {
 	background: #0397d6;
 }
 .pagination li.disabled i {
@@ -152,12 +152,12 @@ table.table .avatar {
 	float: left;
 	margin-top: 10px;
 	font-size: 13px;
-}    
+}
 /* Custom checkbox */
 .custom-checkbox {
 	position: relative;
 }
-.custom-checkbox input[type="checkbox"] {    
+.custom-checkbox input[type="checkbox"] {
 	opacity: 0;
 	position: absolute;
 	margin: 5px 0 0 3px;
@@ -233,10 +233,10 @@ table.table .avatar {
 .modal .btn {
 	border-radius: 2px;
 	min-width: 100px;
-}	
+}
 .modal form label {
 	font-weight: normal;
-}	
+}
 </style>
 <body>
 	@if(session('message'))
@@ -247,11 +247,11 @@ table.table .avatar {
             <div class="modal-content">
                 <form method="POST" action="{{route('saveSale')}}">
                     @csrf
-                    <div class="modal-header">						
+                    <div class="modal-header">
                         <h4 class="modal-title">sale</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                    <div class="modal-body">					
+                    <div class="modal-body">
                         <div class="form-group">
                             <p>Name: {{$product->name}}</p>
 							<p>Model: {{$product->model}}</p>
@@ -280,8 +280,16 @@ table.table .avatar {
                                 <option >POS</option>
                                 <option >Bank Transfer</option>
                               </select>
-                        </div> 
-                            
+                        </div>
+                        <div class="form-group">
+                            <div><label>customer</label></div>
+                            <select  id="categories" name="customer_id" multiple>
+                                @foreach($customers as $customer)
+                                <option value ="{{$customer->id}}">{{$customer->name}}</option>
+                                @endforeach
+                              </select>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">

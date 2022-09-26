@@ -77,14 +77,14 @@ Route::post('saveSale',[App\Http\Controllers\salesController::class,'sales'])->n
     Route::get('show/{id}',[App\Http\Controllers\Admin\transferController::class,'show']);
     Route::get('barcode',[App\Http\Controllers\Admin\transferController::class,'barcode'])->name('barcode');//->middleware('admin');
     Route::resource('customer', customerController::class);
-   
+
     Route::resource('managerSalesPerson', sp::class);
     Route::get('/managerDashboard', function () {
     return view('admin.managers.dashboard');
 });
 // });
 
-    
+
 
 
 
@@ -114,5 +114,11 @@ Route::get('/cart/delete', [App\Http\Controllers\manageSalesController::class,'d
         return view('admin.workers.dashboard');
     });
 
-// });
+    Route::get('stats',[App\Http\Controllers\salesTrackingController::class,'dailyAdmin'])->name('stats');
+    Route::get('managerStats',[App\Http\Controllers\salesTrackingController::class,'dailyManager'])->name('managerStats');
+    Route::get('dailyView',[App\Http\Controllers\salesTrackingController::class,'dailyView'])->name('dailyView');
+    Route::get('creditView',[App\Http\Controllers\salesTrackingController::class,'creditSales'])->name('creditView');
+
+    Route::get('deptPaid/{id}',[App\Http\Controllers\salesTrackingController::class,'deptPaid'])->name('deptPaid');
+
 

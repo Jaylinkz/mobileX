@@ -88,6 +88,14 @@
                             <p>Barcodes</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{url('stats')}}">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Stats</p>
+                            <ul class="nav nav-second-level collapse">
+                            </ul>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -430,7 +438,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                       
+
                     </div>
                 </div>
             </footer>
